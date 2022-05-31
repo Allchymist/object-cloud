@@ -1,0 +1,7 @@
+.Header {
+  @apply
+
+  bg-light-primary
+  w-full
+  text-center
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './app'
 
+import './styles/global.css'
 import { AuthProvider } from './contexts/Auth/AuthProvider'
 
 ReactDOM.render(

@@ -1,9 +1,9 @@
-import { FooterStyle } from "./styles"
+import './footer.css'
 
 export function Footer() {
   return (
-    <FooterStyle>
+    <footer className="Footer">
       <p>Object Panel&reg; &copy; 2022 - {new Date().getUTCFullYear()}</p>
-    </FooterStyle>
+    </footer>
   )
 }

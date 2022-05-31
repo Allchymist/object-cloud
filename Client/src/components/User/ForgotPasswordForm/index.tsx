@@ -1,68 +1,36 @@
 import { useState } from "react";
 
-import Container from './styles';
 import api from "../../../services/api";
 
 const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)*$/i;
 
-interface IMessage {
-  data?: string;
-  type?: string;
-  warn: boolean;
-}
-
 export function ForgotPasswordForm() {
 
   const [ email, setEmail ] = useState('');
-  const [ message, setMessage ] = useState({ warn: false } as IMessage);
+  const [ message, setMessage ] = useState('');
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!email) return setMessage({
-      data: 'Você não inseriu um email.',
-      type: 'Warn',
-      warn: true
-    });
+    if (!email) return setMessage('Você não inseriu um email.');
 
-    setMessage({
-      data: 'Enviando de recuperação...',
-      type: 'Load',
-      warn: true
-    });
+    setMessage('Enviando de recuperação...');
 
     api.post('/account/forgot-password', {
       email
     }).then((response) => {
-      setMessage({
-        data: response.data.message,
-        type: 'Sucess',
-        warn: true
-      });
+      setMessage(response.data.message);
     }).catch((err) => {
       const { error } = err.response.data;
       console.log(error);
-
-      setMessage({
-        data: error,
-        type: 'Warn',
-        warn: true
-      });
+      setMessage(error);
     });
   }
 
   return (
-    <Container>
+    <>
       <div>
         <form onSubmit={handleSubmit} className='Form'>
-          <>{message.warn ?
-            <label>
-              <div className={message.type}>
-                {message.data}
-              </div>
-              <br/>
-            </label>
-          : null }</>
           <label>
             Recuperação de senha:
             <input
@@ -72,14 +40,9 @@ export function ForgotPasswordForm() {
               onChange={e => {
                 setEmail(e.target.value);
 
-                if (e.target.value && !regex.test(e.target.value)) return setMessage({
-                  data: 'Email inválido.',
-                  type: 'Warn',
-                  warn: true
-                });
-
-                setMessage({ warn: false });               
-              }} />
+                if (e.target.value && !regex.test(e.target.value)) return setMessage('Email inválido.');
+                }} 
+              />
           </label>
           <br />
           <button type="submit">Enviar</button>
@@ -88,6 +51,6 @@ export function ForgotPasswordForm() {
           </div>
         </form>
       </div>
-    </Container>
+    </>
   )
 }

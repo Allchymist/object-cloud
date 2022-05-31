@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { IoMdLogIn } from 'react-icons/io'
+import { AxiosResponse, ResponseType } from 'axios';
 
 import { AuthContext } from '../../../contexts/Auth/AuthContext';
-import Container from './styles';
 
 export function LoginForm() {
 
@@ -22,21 +22,18 @@ export function LoginForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault();
     
-		signIn(Login, password).then((response) => {
-			navigate('/');
-
-			setMessageSucess('Login realizado com sucesso!');
-		}).catch((err) => {
-			const { error } = err.response.data;
-			setMessageError(error);
-		});
-
+		// signIn(Login, password).then((response: AxiosResponse)  => {
+		// 	navigate('/');
+			
+		// }).catch((err) => {
+		// 	const { error } = err.response.data;
+		// 	setMessageError(error);
+		// });
   }
 
 	return (
-		<Container>
+		<>
 			<div>
-				{MessageError ? '' : null }
 				<form onSubmit={handleSubmit} className='Form'>
 				<label>
 					Usuário:
@@ -63,6 +60,6 @@ export function LoginForm() {
 					</div>
 				</form>
 			</div>
-		</Container>
+		</>
 	)
 }

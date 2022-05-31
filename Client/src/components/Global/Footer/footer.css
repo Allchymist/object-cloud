@@ -1,0 +1,12 @@
+footer {
+  @apply 
+  bg-light-primary
+  w-full 
+  text-center 
+  absolute 
+  bottom-0 
+  p-4 
+  text-content-light
+
+  dark:bg-dark-primary
+}
